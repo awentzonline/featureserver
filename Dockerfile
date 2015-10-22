@@ -1,22 +1,13 @@
-FROM ubuntu:14.04
+FROM tleyden5iwx/caffe-cpu-master
 MAINTAINER awentzonline
 
-RUN apt-get update -y && apt-get install -y \
-  libprotobuf-dev libleveldb-dev \
-  libsnappy-dev libopencv-dev \
-  libhdf5-serial-dev protobuf-compiler \
-  libatlas-base-dev \
-  python-dev python-pip \
-  libgflags-dev libgoogle-glog-dev liblmdb-dev
-RUN apt-get install -y --no-install-recommends libboost-all-dev
-RUN apt-get install -y \
-  python-numpy python-scipy python-matplotlib \
-  python-pandas cython python-skimage python-h5py
+RUN /opt/caffe/data/ilsvrc12/get_ilsvrc_aux.sh
+RUN python /opt/caffe/scripts/download_model_binary.py \
+  /opt/caffe/models/bvlc_reference_caffenet
 
-ADD ./vendor /app/vendor
-WORKDIR /app/vendor/caffe/python
+ADD ./webapp /webapp
+WORKDIR /webapp
 RUN pip install -r requirements.txt
-WORKDIR /app/vendor/caffe
-ADD ./conf /app/conf
-RUN cp /app/conf/Makefile.config /app/vendor/caffe
-RUN make all && make test
+
+EXPOSE 8080
+CMD ["python", "/webapp/app.py", "-p 8080", "-d"]
