@@ -1,2 +1,6 @@
 server:
   build: .
+  volumes:
+    - "./webapp:/webapp"
+  ports:
+    - "8123:8080"

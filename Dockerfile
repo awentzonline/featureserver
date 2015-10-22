@@ -3,7 +3,7 @@ MAINTAINER awentzonline
 
 RUN /opt/caffe/data/ilsvrc12/get_ilsvrc_aux.sh
 RUN python /opt/caffe/scripts/download_model_binary.py \
-  /opt/caffe/models/bvlc_reference_caffenet
+  /opt/caffe/models/bvlc_googlenet
 
 ADD ./webapp /webapp
 WORKDIR /webapp
