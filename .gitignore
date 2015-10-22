@@ -1,0 +1,17 @@
+*.log
+*.pot
+*.py[co]
+
+# vagrant stuff
+.vagrant
+
+# virtualenv stuff
+.Python
+bin
+lib
+share
+include
+
+.tmp
+bower_components
+node_modules
