@@ -9,5 +9,5 @@ ADD ./webapp /webapp
 WORKDIR /webapp
 RUN pip install -r requirements.txt
 
-EXPOSE 8080
-CMD ["python", "/webapp/app.py", "-p 8080", "-d"]
+EXPOSE 5000
+CMD ["python", "/webapp/app.py", "-p 5000"]

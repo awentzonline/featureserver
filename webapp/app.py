@@ -214,7 +214,6 @@ def start_from_terminal(app):
     # Initialize classifier + warm start by forward for allocation
     app.clf = ImagenetClassifier(**ImagenetClassifier.default_args)
     app.clf.net.forward()
-    print "Fart"
     if opts.debug:
         app.run(debug=True, host='0.0.0.0', port=opts.port)
     else:
@@ -222,7 +221,6 @@ def start_from_terminal(app):
 
 
 if __name__ == '__main__':
-    print 'shit' * 100
     logging.getLogger().setLevel(logging.INFO)
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)

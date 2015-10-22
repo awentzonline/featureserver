@@ -3,4 +3,4 @@ server:
   volumes:
     - "./webapp:/webapp"
   ports:
-    - "8123:8080"
+    - "5000:5000"
