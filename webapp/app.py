@@ -17,7 +17,7 @@ import exifutil
 
 import caffe
 
-REPO_DIRNAME = os.environ.get('CAFFE_PATH', '/opt/caffe')
+REPO_DIRNAME = os.environ.get('CAFFE_PATH', '/root/caffe')
 UPLOAD_FOLDER = '/tmp/caffe_demos_uploads'
 ALLOWED_IMAGE_EXTENSIONS = set(['png', 'bmp', 'jpg', 'jpe', 'jpeg', 'gif'])
 
@@ -100,7 +100,7 @@ class ImagenetClassifier(object):
     '''Using bvlc_googlenet'''
     default_args = {
         'model_def_file': (
-            '{}/models/bvlc_googlenet/deploy.prototxt'.format(REPO_DIRNAME)),
+            '/model/deploy.prototxt'.format(REPO_DIRNAME)),
         'pretrained_model_file': (
             '{}/models/bvlc_googlenet/bvlc_googlenet.caffemodel'.format(REPO_DIRNAME)),
         'mean_file': (

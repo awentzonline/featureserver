@@ -2,5 +2,6 @@ server:
   build: .
   volumes:
     - "./webapp:/webapp"
+    - "./model:/model"
   ports:
     - "5000:5000"
