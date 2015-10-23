@@ -100,7 +100,7 @@ class ImagenetClassifier(object):
     '''Using local, stripped-down version of bvlc_googlenet.'''
     default_args = {
         'model_def_file': (
-            '/model/deploy.prototxt'.format(REPO_DIRNAME)),
+            os.environ.get('FS_PROTOTEXT', '/model/deploy.loss1.prototxt').format(REPO_DIRNAME)),
         'pretrained_model_file': (
             '{}/models/bvlc_googlenet/bvlc_googlenet.caffemodel'.format(REPO_DIRNAME)),
         'mean_file': (
