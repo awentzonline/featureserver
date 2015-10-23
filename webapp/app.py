@@ -97,7 +97,7 @@ def allowed_file(filename):
 
 
 class ImagenetClassifier(object):
-    '''Using bvlc_googlenet'''
+    '''Using local, stripped-down version of bvlc_googlenet.'''
     default_args = {
         'model_def_file': (
             '/model/deploy.prototxt'.format(REPO_DIRNAME)),
@@ -149,7 +149,7 @@ class ImagenetClassifier(object):
     def classify_image(self, image):
         try:
             starttime = time.time()
-            scores = self.net.predict([image], oversample=True).flatten()
+            scores = self.net.predict([image], oversample=False).flatten()
             endtime = time.time()
 
             indices = (-scores).argsort()[:5]
