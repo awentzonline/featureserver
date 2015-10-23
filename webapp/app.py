@@ -48,9 +48,8 @@ def classify_url():
         )
 
     logging.info('Image: %s', imageurl)
-    result = app.clf.classify_image(image)
-    return flask.render_template(
-        'index.html', has_result=True, result=result, imagesrc=imageurl)
+    success, result = app.clf.classify_image(image)
+    return flask.jsonify(data=result.tolist())
 
 
 @app.route('/classify_upload', methods=['POST'])
@@ -72,11 +71,8 @@ def classify_upload():
             result=(False, 'Cannot open uploaded image.')
         )
 
-    result = app.clf.classify_image(image)
-    return flask.render_template(
-        'index.html', has_result=True, result=result,
-        imagesrc=embed_image_html(image)
-    )
+    success, result = app.clf.classify_image(image)
+    return flask.jsonify(data=result.tolist())
 
 
 def embed_image_html(image):
@@ -151,30 +147,7 @@ class ImagenetClassifier(object):
             starttime = time.time()
             scores = self.net.predict([image], oversample=False).flatten()
             endtime = time.time()
-
-            indices = (-scores).argsort()[:5]
-            predictions = self.labels[indices]
-
-            # In addition to the prediction text, we will also produce
-            # the length for the progress bar visualization.
-            meta = [
-                (p, '%.5f' % scores[i])
-                for i, p in zip(indices, predictions)
-            ]
-            logging.info('result: %s', str(meta))
-
-            # Compute expected information gain
-            expected_infogain = np.dot(
-                self.bet['probmat'], scores[self.bet['idmapping']])
-            expected_infogain *= self.bet['infogain']
-
-            # sort the scores
-            infogain_sort = expected_infogain.argsort()[::-1]
-            bet_result = [(self.bet['words'][v], '%.5f' % expected_infogain[v])
-                          for v in infogain_sort[:5]]
-            logging.info('bet result: %s', str(bet_result))
-
-            return (True, meta, bet_result, '%.3f' % (endtime - starttime))
+            return True, scores
 
         except Exception as err:
             logging.info('Classification error: %s', err)
